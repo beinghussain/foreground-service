@@ -1,0 +1,24 @@
+{
+  "name": "@beinghussain/react-native-foreground-service",
+  "version": "0.3.5",
+  "description": "A React Native android module to support launching a foreground service and JS code execution",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "android",
+    "foreground",
+    "service",
+    "background"
+  ],
+  "author": {
+    "name": "Hussain"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": ">=0.59.0"
+  }
+}
