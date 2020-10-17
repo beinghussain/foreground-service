@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.util.Log;
 
@@ -68,55 +69,12 @@ class NotificationHelper {
 
         String title = bundle.getString("title");
 
-        int priority = NotificationCompat.PRIORITY_HIGH;
-        final String priorityString = bundle.getString("importance");
-
-        if (priorityString != null) {
-            switch (priorityString.toLowerCase()) {
-                case "max":
-                    priority = NotificationCompat.PRIORITY_MAX;
-                    break;
-                case "high":
-                    priority = NotificationCompat.PRIORITY_HIGH;
-                    break;
-                case "low":
-                    priority = NotificationCompat.PRIORITY_LOW;
-                    break;
-                case "min":
-                    priority = NotificationCompat.PRIORITY_MIN;
-                    break;
-                case "default":
-                    priority = NotificationCompat.PRIORITY_DEFAULT;
-                    break;
-                default:
-                    priority = NotificationCompat.PRIORITY_HIGH;
-            }
-        }
-
-        int visibility = NotificationCompat.VISIBILITY_PRIVATE;
-        String visibilityString = bundle.getString("visibility");
-
-        if (visibilityString != null) {
-            switch (visibilityString.toLowerCase()) {
-                case "private":
-                    visibility = NotificationCompat.VISIBILITY_PRIVATE;
-                    break;
-                case "public":
-                    visibility = NotificationCompat.VISIBILITY_PUBLIC;
-                    break;
-                case "secret":
-                    visibility = NotificationCompat.VISIBILITY_SECRET;
-                    break;
-                default:
-                    visibility = NotificationCompat.VISIBILITY_PRIVATE;
-            }
-        }
 
         checkOrCreateChannel(mNotificationManager, bundle);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(title)
-                .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+                .setVisibility(NotificationCompat.VISIBILITY_SECRET)
                 .setPriority(NotificationCompat.PRIORITY_MIN)
                 .setShowWhen(false)
                 .setOnlyAlertOnce(true)
@@ -189,8 +147,9 @@ class NotificationHelper {
             return;
 
 
-        NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, this.config.getChannelName(), NotificationManager.IMPORTANCE_LOW);
+        NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, this.config.getChannelName(), NotificationManager.IMPORTANCE_MIN);
         channel.setDescription(this.config.getChannelDescription());
+        channel.setImportance(NotificationManager.IMPORTANCE_MIN);
         channel.enableLights(true);
         channel.enableVibration(bundle.getBoolean("vibration"));
         channel.setShowBadge(true);
