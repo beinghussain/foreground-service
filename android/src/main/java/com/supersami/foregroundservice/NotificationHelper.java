@@ -75,7 +75,7 @@ class NotificationHelper {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(title)
                 .setVisibility(NotificationCompat.VISIBILITY_SECRET)
-                .setPriority(NotificationCompat.PRIORITY_MIN)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setShowWhen(false)
                 .setOnlyAlertOnce(true)
                 .setContentIntent(pendingIntent)
@@ -91,24 +91,12 @@ class NotificationHelper {
             notificationBuilder.setColor(this.config.getNotificationColor());
         }
 
-        notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(bundle.getString("message")));
-
-
         String iconName = bundle.getString("icon");
 
         if (iconName == null) {
             iconName = "ic_notification";
         }
         notificationBuilder.setSmallIcon(getResourceIdForResourceName(context, iconName));
-
-
-        String numberString = bundle.getString("number");
-        if (numberString != null) {
-            int numberInt = Integer.parseInt(numberString);
-            if (numberInt > 0) {
-                notificationBuilder.setNumber(numberInt);
-            }
-        }
 
         return notificationBuilder.build();
     }
@@ -147,9 +135,9 @@ class NotificationHelper {
             return;
 
 
-        NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, this.config.getChannelName(), NotificationManager.IMPORTANCE_MIN);
+        NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, this.config.getChannelName(), NotificationManager.IMPORTANCE_LOW);
         channel.setDescription(this.config.getChannelDescription());
-        channel.setImportance(NotificationManager.IMPORTANCE_MIN);
+        channel.setImportance(NotificationManager.IMPORTANCE_LOW);
         channel.enableLights(true);
         channel.enableVibration(bundle.getBoolean("vibration"));
         channel.setShowBadge(true);
