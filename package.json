@@ -1,5 +1,5 @@
 {
-  "name": "foreground-service",
+  "name": "@foreground-service",
   "version": "0.3.5",
   "description": "A React Native android module to support launching a foreground service and JS code execution",
   "main": "index.js",
